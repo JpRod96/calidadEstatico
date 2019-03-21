@@ -1,4 +1,6 @@
 language: java
+sudo: true
+dist: trusty
 addons:
   sonarcloud:
     organization: "jprod96-github" # the key of the org you chose at step #3
@@ -15,3 +17,5 @@ addons:
 script:
   # other script steps might be done before running the actual analysis
   mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+before_install:
+  - chmod +x mvnw
