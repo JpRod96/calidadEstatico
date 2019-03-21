@@ -13,7 +13,9 @@ addons:
                   tpKE/phR3TvJ079lVmYlmuFbP/Y3x4YluZwRoZtokzu6G4bk+0V5lHFaNXqjE9N1zv5bExMZAcVUlW94
                   eVy5EeByTbfOzOhgEPn3lT6doLdLv+fXHe4fIK2L+eIUUwjC6NAVaSrMsY72RJjMov0bkeui5Va/p5Dg
                   XkMSBWP5QjTipKj8PkqAgMLWtLZ6R3wDCiCMI+YmxJeDgJ4F900jTG0Q7dvE3lQl3Ck5go6KcKqA5TmT
-                  3WQuxASpvRBjCE3PbZ9Yat2lqneBjpQyb1t24krdJ+ml3IPU6KqKwU=" # encrypted value of your token
+                  3WQuxASpvRBjCE3PbZ9Yat2lqneBjpQyb1t24krdJ+ml3IPU6KqKwU="
+                  # encrypted value of your token
+                  # caadb6417e36707a21d12dfce25499634ff569d7 token desencriptado
 script:
   # other script steps might be done before running the actual analysis
   mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
