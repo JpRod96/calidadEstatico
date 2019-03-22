@@ -19,7 +19,4 @@ Archivos de prueba: <br> https://drive.google.com/drive/folders/1RtMQlcAhc3KmGGL
 <br><br>
 Cualquier duda o consulta al whatsapp: 77971115
 
-```
 [![Build Status](https://travis-ci.org/JpRod96/calidadEstatico.svg?branch=master)](https://travis-ci.org/JpRod96/calidadEstatico)
-```
-
