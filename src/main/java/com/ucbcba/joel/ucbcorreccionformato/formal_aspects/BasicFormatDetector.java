@@ -64,11 +64,11 @@ public class BasicFormatDetector {
                 if (wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) {
                     List<WordsProperties> words = seeker.findWordsFromAPage(page,wordLine);
                     // En caso que no se encuentre la linea del PDF la vuelve a buscar normalizandola
-                    if (words.size() == 0) {
+                    if (words.isEmpty()) {
                         wordLine = Normalizer.normalize(wordLine, Normalizer.Form.NFD);
                         wordLine = wordLine.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
                         words = seeker.findWordsFromAPage(page, wordLine);
-                        if (words.size() == 0) {
+                        if (words.isEmpty()) {
                             continue;
                         }
                     }
