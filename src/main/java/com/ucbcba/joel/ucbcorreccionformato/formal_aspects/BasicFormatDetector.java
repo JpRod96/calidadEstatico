@@ -83,11 +83,10 @@ public class BasicFormatDetector {
                 }
                 else {
                     List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
-                    if (!words.isEmpty()){
-                        if (words.get(words.size()-1).getY() > 720) {
+
+                        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
                             isCorrectNumeration = true;
                         }
-                    }
                 }
             }
         }
@@ -96,6 +95,10 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private boolean isWordsCorrectPosition(List<WordsProperties> words) {
+        return words.get(words.size()-1).getY() > 720;
     }
 
     public List<BasicFormatReport> getBasicFormatReports() {
