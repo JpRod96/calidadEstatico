@@ -83,7 +83,7 @@ public class BasicFormatDetector {
                 }
                 else {
                     List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
-                    if (words.size() != 0){
+                    if (words.isEmpty()){
                         if (words.get(words.size()-1).getY() > 720) {
                             isCorrectNumeration = true;
                         }
