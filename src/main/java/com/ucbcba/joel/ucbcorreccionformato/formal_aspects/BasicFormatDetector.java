@@ -31,14 +31,7 @@ public class BasicFormatDetector {
     public List<BasicFormatReport> getBasicFormatReport(int page) throws IOException {
         List<BasicFormatReport> resp = new ArrayList<>();
 
-        String formatSize = "Tamaño de hoja carta";
-        boolean isCorrectSize = false;
-        float pageWidth = pdfdocument.getPage(page-1).getMediaBox().getWidth();
-        float pageHeight = pdfdocument.getPage(page-1).getMediaBox().getHeight();
-        if (pageWidth == 612.0 && pageHeight == 792.0){
-            isCorrectSize = true;
-        }
-        resp.add(new BasicFormatReport(formatSize,isCorrectSize));
+        getCorrectFormatSize(page, resp);
 
 
         String formatMargin = "Margen 3cm (derecho, inferior y superior) 3.5cm (izquierdo)";
@@ -64,14 +57,12 @@ public class BasicFormatDetector {
                 if (wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) {
                     List<WordsProperties> words = seeker.findWordsFromAPage(page,wordLine);
                     // En caso que no se encuentre la linea del PDF la vuelve a buscar normalizandola
-                    if (words.isEmpty()) {
-                        wordLine = Normalizer.normalize(wordLine, Normalizer.Form.NFD);
-                        wordLine = wordLine.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-                        words = seeker.findWordsFromAPage(page, wordLine);
-                        if (words.isEmpty()) {
-                            continue;
-                        }
-                    }
+                    words = normalizeWords(page, wordLine, words);
+
+
+                    if (words == null) continue;
+
+
                     for(WordsProperties word:words){
                         if (word.getX() < 95 || word.getYPlusHeight() < 80 || word.getXPlusWidth() > 530 || word.getY() > 705){
                             isCorrectMargin = false;
@@ -95,6 +86,29 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private List<WordsProperties> normalizeWords(int page, String wordLine, List<WordsProperties> words) throws IOException {
+        if (words.isEmpty()) {
+            wordLine = Normalizer.normalize(wordLine, Normalizer.Form.NFD);
+            wordLine = wordLine.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+            words = seeker.findWordsFromAPage(page, wordLine);
+            if (words.isEmpty()) {
+                return null;
+            }
+        }
+        return words;
+    }
+
+    private void getCorrectFormatSize(int page, List<BasicFormatReport> resp) {
+        String formatSize = "Tamaño de hoja carta";
+        boolean isCorrectSize = false;
+        float pageWidth = pdfdocument.getPage(page-1).getMediaBox().getWidth();
+        float pageHeight = pdfdocument.getPage(page-1).getMediaBox().getHeight();
+        if (pageWidth == 612.0 && pageHeight == 792.0){
+            isCorrectSize = true;
+        }
+        resp.add(new BasicFormatReport(formatSize,isCorrectSize));
     }
 
     private boolean isWordsCorrectPosition(List<WordsProperties> words) {
