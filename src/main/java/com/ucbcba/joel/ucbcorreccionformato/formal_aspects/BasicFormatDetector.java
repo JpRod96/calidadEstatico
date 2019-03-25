@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormalAspects;
+package com.ucbcba.joel.ucbcorreccionformato.formal_aspects;
 
 import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
@@ -57,18 +57,18 @@ public class BasicFormatDetector {
         pdfStripper.setParagraphStart("\n");
         pdfStripper.setSortByPosition(true);
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 // En caso que encuentre la numeración de la página
                 if (wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) {
                     List<WordsProperties> words = seeker.findWordsFromAPage(page,wordLine);
                     // En caso que no se encuentre la linea del PDF la vuelve a buscar normalizandola
-                    if (words.size() == 0) {
+                    if (words.isEmpty()) {
                         wordLine = Normalizer.normalize(wordLine, Normalizer.Form.NFD);
                         wordLine = wordLine.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
                         words = seeker.findWordsFromAPage(page, wordLine);
-                        if (words.size() == 0) {
+                        if (words.isEmpty()) {
                             continue;
                         }
                     }
@@ -83,11 +83,10 @@ public class BasicFormatDetector {
                 }
                 else {
                     List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
-                    if (words.size() != 0){
-                        if (words.get(words.size()-1).getY() > 720) {
+
+                        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
                             isCorrectNumeration = true;
                         }
-                    }
                 }
             }
         }
@@ -96,6 +95,10 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private boolean isWordsCorrectPosition(List<WordsProperties> words) {
+        return words.get(words.size()-1).getY() > 720;
     }
 
     public List<BasicFormatReport> getBasicFormatReports() {
