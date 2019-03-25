@@ -63,10 +63,13 @@ public class BasicFormatDetector {
                     if (words == null) continue;
 
 
-                    for(WordsProperties word:words){
-                        if (word.getX() < 95 || word.getYPlusHeight() < 80 || word.getXPlusWidth() > 530 || word.getY() > 705){
+                    for(WordsProperties word:words) {
+                        if (word.getX() < 95 || word.getYPlusHeight() < 80 || word.getXPlusWidth() > 530 || word.getY() > 705) {
                             isCorrectMargin = false;
                         }
+                    }
+
+                    for(WordsProperties word:words){
                         if(!word.getFontBassic().contains("Times") || !word.getFontBassic().contains("New") || !word.getFontBassic().contains("Roman") || word.getFontSizeBasic()!=12){
                             isCorrectFont = false;
                         }
