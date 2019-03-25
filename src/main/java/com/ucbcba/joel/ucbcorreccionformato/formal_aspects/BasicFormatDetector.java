@@ -63,17 +63,9 @@ public class BasicFormatDetector {
                     if (words == null) continue;
 
 
-                    for(WordsProperties word:words) {
-                        if (word.getX() < 95 || word.getYPlusHeight() < 80 || word.getXPlusWidth() > 530 || word.getY() > 705) {
-                            isCorrectMargin = false;
-                        }
-                    }
+                    isCorrectMargin = getWrongMargin(isCorrectMargin, words);
 
-                    for(WordsProperties word:words){
-                        if(!word.getFontBassic().contains("Times") || !word.getFontBassic().contains("New") || !word.getFontBassic().contains("Roman") || word.getFontSizeBasic()!=12){
-                            isCorrectFont = false;
-                        }
-                    }
+                    isCorrectFont = getWrongFont(isCorrectFont, words);
                 }
                 else {
                     List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
@@ -89,6 +81,32 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private boolean getWrongFont(boolean isCorrectFont, List<WordsProperties> words) {
+        for(WordsProperties word:words){
+            if(isWrongFont(word)){
+                isCorrectFont = false;
+            }
+        }
+        return isCorrectFont;
+    }
+
+    private boolean getWrongMargin(boolean isCorrectMargin, List<WordsProperties> words) {
+        for(WordsProperties word:words) {
+            if (isWrongMargin(word)) {
+                isCorrectMargin = false;
+            }
+        }
+        return isCorrectMargin;
+    }
+
+    private boolean isWrongFont(WordsProperties word) {
+        return !word.getFontBassic().contains("Times") || !word.getFontBassic().contains("New") || !word.getFontBassic().contains("Roman") || word.getFontSizeBasic()!=12;
+    }
+
+    private boolean isWrongMargin(WordsProperties word) {
+        return word.getX() < 95 || word.getYPlusHeight() < 80 || word.getXPlusWidth() > 530 || word.getY() > 705;
     }
 
     private List<WordsProperties> normalizeWords(int page, String wordLine, List<WordsProperties> words) throws IOException {
