@@ -44,24 +44,19 @@ public class BasicFormatDetector {
         boolean isCorrectNumeration = false;
 
         // Recorre el PDF linea por linea
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(page);
-        pdfStripper.setEndPage(page);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(page);
+
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
             String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 // En caso que encuentre la numeración de la página
-                if (wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) {
+                if (isPageNumeration(wordLine)) {
                     List<WordsProperties> words = seeker.findWordsFromAPage(page,wordLine);
                     // En caso que no se encuentre la linea del PDF la vuelve a buscar normalizandola
                     words = normalizeWords(page, wordLine, words);
 
-
                     if (words == null) continue;
-
 
                     isCorrectMargin = getWrongMargin(isCorrectMargin, words);
 
@@ -81,6 +76,19 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private PDFTextStripper getPdfTextStripper(int page) throws IOException {
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        pdfStripper.setStartPage(page);
+        pdfStripper.setEndPage(page);
+        pdfStripper.setParagraphStart("\n");
+        pdfStripper.setSortByPosition(true);
+        return pdfStripper;
+    }
+
+    private boolean isPageNumeration(String wordLine) {
+        return wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1;
     }
 
     private boolean getWrongFont(boolean isCorrectFont, List<WordsProperties> words) {
