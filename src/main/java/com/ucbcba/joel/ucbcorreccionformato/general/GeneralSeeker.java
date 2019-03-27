@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.General;
+package com.ucbcba.joel.ucbcorreccionformato.general;
 
 import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.ImagesOnPdf.PdfImage;
 import org.apache.pdfbox.pdmodel.PDDocument;

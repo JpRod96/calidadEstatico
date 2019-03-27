@@ -3,9 +3,9 @@ package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatRules;
 
 import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatControl.CoverFormat;
 import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.FormatErrorReport;
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
-import com.ucbcba.joel.ucbcorreccionformato.General.ReportFormatError;
-import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
+import com.ucbcba.joel.ucbcorreccionformato.general.GeneralSeeker;
+import com.ucbcba.joel.ucbcorreccionformato.general.ReportFormatError;
+import com.ucbcba.joel.ucbcorreccionformato.general.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
