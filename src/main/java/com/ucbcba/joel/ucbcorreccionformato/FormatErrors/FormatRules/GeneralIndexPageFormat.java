@@ -56,7 +56,7 @@ public class GeneralIndexPageFormat implements FormatRule {
                         }
                     }
 
-                    if (wordLine.contains("ÍNDICE GENERAL") || wordLine.contains("Índice general") || wordLine.contains("Índice general")) {
+                    if (wordLine.contains("ÍNDICE GENERAL") || wordLine.contains("Índice general")) {
                         comments = new GeneralIndexFormat(words.get(0),12,"Centrado",true,false,true,0).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                         continue;
