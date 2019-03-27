@@ -17,22 +17,21 @@ public class PagesSeeker {
     }
 
     public boolean isTheCoverInThisPage(int page) throws IOException {
-        boolean bool1,bool2, bool3, bool4, bool5, bool6,bool7, bool8, bool9, bool10,bool11,bool12, bool13, bool14, bool15;
-        bool1 = generalSeeker.isTheWordInThePage(page,"Boliviana");
-        bool2 = generalSeeker.isTheWordInThePage(page,"boliviana");
-        bool3 = generalSeeker.isTheWordInThePage(page,"BOLIVIANA");
-        bool4 = generalSeeker.isTheWordInThePage(page,"Regional");
-        bool5 = generalSeeker.isTheWordInThePage(page,"regional");
-        bool6 = generalSeeker.isTheWordInThePage(page,"REGIONAL");
-        bool7 = generalSeeker.isTheWordInThePage(page,"Departamento");
-        bool8 = generalSeeker.isTheWordInThePage(page,"departamento");
-        bool9 = generalSeeker.isTheWordInThePage(page,"DEPARTAMENTO");
-        bool10 = generalSeeker.isTheWordInThePage(page,"Carrera");
-        bool11 = generalSeeker.isTheWordInThePage(page,"carrera");
-        bool12 = generalSeeker.isTheWordInThePage(page,"CARRERA");
-        bool13 = generalSeeker.isTheWordInThePage(page,"– Bolivia");
-        bool14 = generalSeeker.isTheWordInThePage(page,"– bolivia");
-        bool15 = generalSeeker.isTheWordInThePage(page,"– BOLIVIA");
+        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Boliviana");
+        boolean bool2 = generalSeeker.isTheWordInThePage(page,"boliviana");
+        boolean bool3 = generalSeeker.isTheWordInThePage(page,"BOLIVIANA");
+        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Regional");
+        boolean bool5 = generalSeeker.isTheWordInThePage(page,"regional");
+        boolean bool6 = generalSeeker.isTheWordInThePage(page,"REGIONAL");
+        boolean bool7 = generalSeeker.isTheWordInThePage(page,"Departamento");
+        boolean bool8 = generalSeeker.isTheWordInThePage(page,"departamento");
+        boolean bool9 = generalSeeker.isTheWordInThePage(page,"DEPARTAMENTO");
+        boolean bool10 = generalSeeker.isTheWordInThePage(page,"Carrera");
+        boolean bool11 = generalSeeker.isTheWordInThePage(page,"carrera");
+        boolean bool12 = generalSeeker.isTheWordInThePage(page,"CARRERA");
+        boolean bool13 = generalSeeker.isTheWordInThePage(page,"– Bolivia");
+        boolean bool14 = generalSeeker.isTheWordInThePage(page,"– bolivia");
+        boolean bool15 = generalSeeker.isTheWordInThePage(page,"– BOLIVIA");
         return getNumberOfTrues(bool1,bool2, bool3, bool4, bool5, bool6,bool7, bool8, bool9, bool10,bool11,bool12, bool13, bool14, bool15) >= 3;
     }
 
@@ -63,11 +62,10 @@ public class PagesSeeker {
 
 
     public boolean isTheFigureTableIndexInThisPage(int page) throws IOException {
-        boolean bool1,bool2,bool3,bool4;
-        bool1 = generalSeeker.isTheWordInThePage(page,"Figura");
-        bool2 = generalSeeker.isTheWordInThePage(page,"FIGURA");
-        bool3 = generalSeeker.isTheWordInThePage(page,"TABLA");
-        bool4 = generalSeeker.isTheWordInThePage(page,"Tabla");
+        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Figura");
+        boolean bool2 = generalSeeker.isTheWordInThePage(page,"FIGURA");
+        boolean bool3 = generalSeeker.isTheWordInThePage(page,"TABLA");
+        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Tabla");
         return getNumberOfTrues(bool1,bool2,bool3,bool4)>=1;
     }
 
@@ -127,19 +125,18 @@ public class PagesSeeker {
 
 
     public boolean isTheFirstAnnexInThisPage(int page) throws IOException {
-        boolean bool1,bool2,bool3,bool4,bool5,bool6,bool7,bool8,bool9,bool10,bool11,bool12;
-        bool1 = generalSeeker.isTheWordInThePage(page,"Anexo 1 ");
-        bool2 = generalSeeker.isTheWordInThePage(page,"anexo 1 ");
-        bool3 = generalSeeker.isTheWordInThePage(page,"ANEXO 1 ");
-        bool4 = generalSeeker.isTheWordInThePage(page,"Anexo 1:");
-        bool5 = generalSeeker.isTheWordInThePage(page,"anexo 1:");
-        bool6 = generalSeeker.isTheWordInThePage(page,"ANEXO 1:");
-        bool7 = generalSeeker.isTheWordInThePage(page,"Anexo 1,");
-        bool8 = generalSeeker.isTheWordInThePage(page,"anexo 1,");
-        bool9 = generalSeeker.isTheWordInThePage(page,"ANEXO 1,");
-        bool10 = generalSeeker.isTheWordInThePage(page,"Anexo 1.");
-        bool11 = generalSeeker.isTheWordInThePage(page,"anexo 1.");
-        bool12 = generalSeeker.isTheWordInThePage(page,"ANEXO 1.");
+        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Anexo 1 ");
+        boolean bool2 = generalSeeker.isTheWordInThePage(page,"anexo 1 ");
+        boolean bool3 = generalSeeker.isTheWordInThePage(page,"ANEXO 1 ");
+        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Anexo 1:");
+        boolean bool5 = generalSeeker.isTheWordInThePage(page,"anexo 1:");
+        boolean bool6 = generalSeeker.isTheWordInThePage(page,"ANEXO 1:");
+        boolean bool7 = generalSeeker.isTheWordInThePage(page,"Anexo 1,");
+        boolean bool8 = generalSeeker.isTheWordInThePage(page,"anexo 1,");
+        boolean bool9 = generalSeeker.isTheWordInThePage(page,"ANEXO 1,");
+        boolean bool10 = generalSeeker.isTheWordInThePage(page,"Anexo 1.");
+        boolean bool11 = generalSeeker.isTheWordInThePage(page,"anexo 1.");
+        boolean bool12 = generalSeeker.isTheWordInThePage(page,"ANEXO 1.");
         return getNumberOfTrues(bool1,bool2,bool3,bool4,bool5,bool6,bool7,bool8,bool9,bool10,bool11,bool12) >= 1;
     }
 
