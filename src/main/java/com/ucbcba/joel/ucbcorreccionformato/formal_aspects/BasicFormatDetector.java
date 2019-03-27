@@ -34,14 +34,8 @@ public class BasicFormatDetector {
 
         getCorrectFormatSize(page, resp);
 
-
-        String formatMargin = "Margen 3cm (derecho, inferior y superior) 3.5cm (izquierdo)";
         boolean isCorrectMargin = true;
-
-        String formatFont = "Tipo de letra: Times New Roman 12";
         boolean isCorrectFont = true;
-
-        String formatNumeration = "Numeración parte inferior";
         boolean isCorrectNumeration = false;
 
         // Recorre el PDF linea por linea
@@ -64,19 +58,36 @@ public class BasicFormatDetector {
                     isCorrectFont = getWrongFont(isCorrectFont, words);
                 }
                 else {
-                    List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
-
-                        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
-                            isCorrectNumeration = true;
-                        }
+                    isCorrectNumeration = getCorrectNumeration(page, isCorrectNumeration, wordLine);
                 }
             }
         }
-        resp.add(new BasicFormatReport(formatMargin,isCorrectMargin));
-        resp.add(new BasicFormatReport(formatFont,isCorrectFont));
-        resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
+        resp.add(new BasicFormatReport(getFormatMargin(),isCorrectMargin));
+        resp.add(new BasicFormatReport(getFormatFont(),isCorrectFont));
+        resp.add(new BasicFormatReport(getFormatNumeration(),isCorrectNumeration));
 
         return resp;
+    }
+
+    private boolean getCorrectNumeration(int page, boolean isCorrectNumeration, String wordLine) throws IOException {
+        List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
+
+        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
+            isCorrectNumeration = true;
+        }
+        return isCorrectNumeration;
+    }
+
+    private String getFormatNumeration() {
+        return "Numeración parte inferior";
+    }
+
+    private String getFormatFont() {
+        return "Tipo de letra: Times New Roman 12";
+    }
+
+    private String getFormatMargin() {
+        return "Margen 3cm (derecho, inferior y superior) 3.5cm (izquierdo)";
     }
 
     private PDFTextStripper getPdfTextStripper(int page) throws IOException {
