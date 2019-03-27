@@ -34,7 +34,6 @@ public class BasicFormatDetector {
 
         getCorrectFormatSize(page, resp);
 
-
         String formatMargin = "Margen 3cm (derecho, inferior y superior) 3.5cm (izquierdo)";
         boolean isCorrectMargin = true;
 
@@ -64,11 +63,7 @@ public class BasicFormatDetector {
                     isCorrectFont = getWrongFont(isCorrectFont, words);
                 }
                 else {
-                    List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
-
-                        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
-                            isCorrectNumeration = true;
-                        }
+                    isCorrectNumeration = getCorrectNumeration(page, isCorrectNumeration, wordLine);
                 }
             }
         }
@@ -77,6 +72,15 @@ public class BasicFormatDetector {
         resp.add(new BasicFormatReport(formatNumeration,isCorrectNumeration));
 
         return resp;
+    }
+
+    private boolean getCorrectNumeration(int page, boolean isCorrectNumeration, String wordLine) throws IOException {
+        List<WordsProperties> words = seeker.findWordsFromAPage( page,wordLine);
+
+        if (!words.isEmpty() && isWordsCorrectPosition(words)) {
+            isCorrectNumeration = true;
+        }
+        return isCorrectNumeration;
     }
 
     private PDFTextStripper getPdfTextStripper(int page) throws IOException {
