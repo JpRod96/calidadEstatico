@@ -117,7 +117,7 @@ public class GeneralSeeker {
         PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
