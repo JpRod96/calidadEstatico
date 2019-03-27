@@ -81,16 +81,22 @@ public class GeneralSeeker {
         PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
-                if (arr[0].contains("Figura")) {
-                    List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
-                    for (WordsProperties word : words) {
-                        if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
-                            resp = word;
-                        }
-                    }
+                List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
+                resp = getFigureNumeration(image, arr[0], words);
+            }
+        }
+        return resp;
+    }
+
+    private WordsProperties getFigureNumeration(PdfImage image, String s, List<WordsProperties> words) {
+        WordsProperties resp = null;
+        if (s.contains("Figura")) {
+            for (WordsProperties word : words) {
+                if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
+                    resp = word;
                 }
             }
         }
