@@ -48,23 +48,7 @@ public class BiographyPageFormat implements  FormatRule {
                     //Condicional paara evitar el control en la paginación
                     if ((wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) || wordLine.length() > 4) {
                         if (wordLine.charAt(0) == '[') {
-                            StringBuilder bibliographic = new StringBuilder();
-                            for (String lines : ref_bibliografy) {
-                                bibliographic.append(lines).append(" ");
-                            }
-                            if(bibliographic.length()!=0){
-                                List<String> comments = new ArrayList<>();
-                                PatternBibliographyReferences pattern = getPattern(bibliographic.toString());
-                                if (pattern!=null) {
-                                    Matcher matcher = pattern.getMatcher(bibliographic.toString());
-                                    if (!matcher.find()) {
-                                        comments.add("La referencia en "+pattern.getName()+".");
-                                    }
-                                }else{
-                                    comments.add("Consultar la Guía para la presentación de trabajos académicos.");
-                                }
-                                reportFormatErrors(comments, ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
-                            }
+                            checkBibliographicFormat(ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
                             ref_bibliografy = new ArrayList<>();
                             ref_bibliografy.add(wordLine);
                         } else {
@@ -74,6 +58,11 @@ public class BiographyPageFormat implements  FormatRule {
                 }
             }
         }
+        checkBibliographicFormat(ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
+        return formatErrors;
+    }
+
+    private void checkBibliographicFormat(List<String> ref_bibliografy, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException{
         StringBuilder bibliographic = new StringBuilder();
         for (String lines : ref_bibliografy) {
             bibliographic.append(lines).append(" ");
@@ -91,7 +80,6 @@ public class BiographyPageFormat implements  FormatRule {
             }
             reportFormatErrors(comments, ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
         }
-        return formatErrors;
     }
 
     private void reportFormatErrors(List<String> comments, List<String> ref_bibliografy, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException {
