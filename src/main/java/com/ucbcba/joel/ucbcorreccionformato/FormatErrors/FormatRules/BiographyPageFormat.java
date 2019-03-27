@@ -2,7 +2,6 @@ package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatRules;
 
 import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.Bibliographies.PatternBibliographyReferences;
 import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.*;
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -15,31 +14,18 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BiographyPageFormat implements  FormatRule {
-
-    private PDDocument pdfdocument;
-    private GeneralSeeker seeker;
-    private AtomicLong counter;
+public class BiographyPageFormat extends  EssentialDocFormat {
 
     public BiographyPageFormat(PDDocument pdfdocument, AtomicLong counter){
-        this.pdfdocument = pdfdocument;
-        this.seeker = new GeneralSeeker(pdfdocument);
-        this.counter = counter;
+        super(pdfdocument, counter);
     }
     @Override
     public List<FormatErrorReport> getFormatErrors(int page) throws IOException {
-        float pageWidth = pdfdocument.getPage(page-1).getMediaBox().getWidth();
-        float pageHeight = pdfdocument.getPage(page-1).getMediaBox().getHeight();
-        List<FormatErrorReport> formatErrors = new ArrayList<>();
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(page);
-        pdfStripper.setEndPage(page);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        defaultGetFormatError(page);
         List<String> ref_bibliografy = new ArrayList<>();
         boolean end=false;
         //Recorre la página linea por linea
-        for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
+        for (String line : pdfStripper.getText(pdfDocument).split(pdfStripper.getParagraphStart())) {
             String arr[] = line.split(" ", 2);
             // Condicional si encuentra una linea en blanco
             if (!arr[0].equals("")) {
