@@ -8,6 +8,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BasicFormatDetector {
@@ -123,7 +124,7 @@ public class BasicFormatDetector {
             wordLine = wordLine.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
             words = seeker.findWordsFromAPage(page, wordLine);
             if (words.isEmpty()) {
-                return null;
+                return Collections.emptyList();
             }
         }
         return words;
