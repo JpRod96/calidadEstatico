@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.PageCalibration;
+package com.ucbcba.joel.ucbcorreccionformato.page_calibration;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
