@@ -29,16 +29,7 @@ public class BiographyPageFormat extends  EssentialDocFormat {
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 if (!wordLine.contains("BIBLIOGRAFÍA") && !wordLine.contains("Bibliografía") && !wordLine.contains("BIBLIOGRAFÍA")) {
-                    //Condicional paara evitar el control en la paginación
-                    if ((wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) || wordLine.length() > 4) {
-                        if (wordLine.charAt(0) == '[') {
-                            checkBibliographicFormat(refBibliography, formatErrors, pageWidth, pageHeight, page);
-                            refBibliography = new ArrayList<>();
-                            refBibliography.add(wordLine);
-                        } else {
-                            refBibliography.add(wordLine);
-                        }
-                    }
+                    avoidPageControl(wordLine, refBibliography, page);
                 }
             }
         }
