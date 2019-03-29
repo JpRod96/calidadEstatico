@@ -1,7 +1,7 @@
-package com.ucbcba.joel.ucbcorreccionformato.formatErrors.formatRules;
+package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
-import com.ucbcba.joel.ucbcorreccionformato.formatErrors.FormatControl.GeneralIndexFormat;
-import com.ucbcba.joel.ucbcorreccionformato.formatErrors.HighlightsReport.FormatErrorReport;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.FormatControl.GeneralIndexFormat;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.HighlightsReport.FormatErrorReport;
 import com.ucbcba.joel.ucbcorreccionformato.General.ReportFormatError;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
