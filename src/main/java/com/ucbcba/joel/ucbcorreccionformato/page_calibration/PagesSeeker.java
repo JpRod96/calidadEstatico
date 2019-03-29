@@ -164,9 +164,9 @@ public class PagesSeeker {
 
 
 
-    public int getNumberOfTrues(boolean... vars) {
+    public int getNumberOfTrues(boolean[] isTheWordThere) {
         int count = 0;
-        for (boolean var : vars) {
+        for (boolean var : isTheWordThere) {
             count += (var ? 1 : 0);
         }
         return count;
