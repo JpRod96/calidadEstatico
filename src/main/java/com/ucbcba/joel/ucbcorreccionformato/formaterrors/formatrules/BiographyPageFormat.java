@@ -70,6 +70,8 @@ public class BiographyPageFormat extends  EssentialDocFormat {
 
     private void reportFormatErrors(List<String> comments, List<String> ref_bibliografy, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException {
         if (comments.size() != 0) {
+    private void reportFormatErrors(List<String> comments, List<String> refBibliography, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException {
+        if (!comments.isEmpty()) {
             List<BoundingRect> boundingRects = new ArrayList<>();
             String contentText = "";
             float x = 0,y=0,endX=0,upperY=0;
