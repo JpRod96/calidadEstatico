@@ -134,19 +134,21 @@ public class PagesSeeker {
 
 
     public boolean isTheFirstAnnexInThisPage(int page) throws IOException {
-        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Anexo 1 ");
-        boolean bool2 = generalSeeker.isTheWordInThePage(page,"anexo 1 ");
-        boolean bool3 = generalSeeker.isTheWordInThePage(page,"ANEXO 1 ");
-        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Anexo 1:");
-        boolean bool5 = generalSeeker.isTheWordInThePage(page,"anexo 1:");
-        boolean bool6 = generalSeeker.isTheWordInThePage(page,"ANEXO 1:");
-        boolean bool7 = generalSeeker.isTheWordInThePage(page,"Anexo 1,");
-        boolean bool8 = generalSeeker.isTheWordInThePage(page,"anexo 1,");
-        boolean bool9 = generalSeeker.isTheWordInThePage(page,"ANEXO 1,");
-        boolean bool10 = generalSeeker.isTheWordInThePage(page,"Anexo 1.");
-        boolean bool11 = generalSeeker.isTheWordInThePage(page,"anexo 1.");
-        boolean bool12 = generalSeeker.isTheWordInThePage(page,"ANEXO 1.");
-        return getNumberOfTrues(bool1,bool2,bool3,bool4,bool5,bool6,bool7,bool8,bool9,bool10,bool11,bool12) >= 1;
+        boolean[] isAnnex = {
+                generalSeeker.isTheWordInThePage(page,"Anexo 1 "),
+                generalSeeker.isTheWordInThePage(page,"anexo 1 "),
+                generalSeeker.isTheWordInThePage(page,"ANEXO 1 "),
+                generalSeeker.isTheWordInThePage(page,"Anexo 1:"),
+                generalSeeker.isTheWordInThePage(page,"anexo 1:"),
+                generalSeeker.isTheWordInThePage(page,"ANEXO 1:"),
+                generalSeeker.isTheWordInThePage(page,"Anexo 1,"),
+                generalSeeker.isTheWordInThePage(page,"anexo 1,"),
+                generalSeeker.isTheWordInThePage(page,"ANEXO 1,"),
+                generalSeeker.isTheWordInThePage(page,"Anexo 1."),
+                generalSeeker.isTheWordInThePage(page,"anexo 1."),
+                generalSeeker.isTheWordInThePage(page,"ANEXO 1.")
+        };
+        return getNumberOfTrues(isAnnex) >= 1;
     }
 
 
