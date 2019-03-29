@@ -22,7 +22,6 @@ public class BiographyPageFormat extends  EssentialDocFormat {
     public List<FormatErrorReport> getFormatErrors(int page) throws IOException {
         defaultGetFormatError(page);
         List<String> refBibliography = new ArrayList<>();
-        boolean end=false;
         //Recorre la página linea por linea
         for (String line : pdfStripper.getText(pdfDocument).split(pdfStripper.getParagraphStart())) {
             String arr[] = line.split(" ", 2);
