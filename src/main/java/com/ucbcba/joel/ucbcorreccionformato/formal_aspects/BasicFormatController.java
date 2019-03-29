@@ -1,21 +1,21 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormalAspects;
+package com.ucbcba.joel.ucbcorreccionformato.formal_aspects;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class BasicFormatController {
-    @RequestMapping("/api/basicFormat/{fileName:.+}")
+    @PostMapping(value = "/api/basicFormat/{fileName:.+}")
     public List<BasicFormatReport> getBasicMisstakes(@PathVariable String fileName, @RequestParam(value="figureTableIndexPageEnd") String figureTableIndexPageEnd
             , @RequestParam(value="annexedPage") String annexedPage) {
+        Logger logger = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.formal_aspects.BasicFormatController");
         List<BasicFormatReport> basicFormatReports = new ArrayList<>();
         String dirPdfFile = "uploads/"+fileName;
         PDDocument pdfdocument = null;
@@ -25,7 +25,7 @@ public class BasicFormatController {
             formatErrorDetector.analyzeBasicFormat(figureTableIndexPageEnd,annexedPage);
             basicFormatReports = formatErrorDetector.getBasicFormatReports();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "context", e);
         }
         return basicFormatReports;
     }
