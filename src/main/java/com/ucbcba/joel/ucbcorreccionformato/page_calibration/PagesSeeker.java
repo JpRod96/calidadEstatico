@@ -66,11 +66,13 @@ public class PagesSeeker {
 
 
     public boolean isTheFigureTableIndexInThisPage(int page) throws IOException {
-        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Figura");
-        boolean bool2 = generalSeeker.isTheWordInThePage(page,"FIGURA");
-        boolean bool3 = generalSeeker.isTheWordInThePage(page,"TABLA");
-        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Tabla");
-        return getNumberOfTrues(bool1,bool2,bool3,bool4)>=1;
+        boolean[] isWordReference = {
+                generalSeeker.isTheWordInThePage(page,"Figura"),
+                generalSeeker.isTheWordInThePage(page,"FIGURA"),
+                generalSeeker.isTheWordInThePage(page,"TABLA"),
+                generalSeeker.isTheWordInThePage(page,"Tabla")};
+
+        return getNumberOfTrues(isWordReference)>=1;
     }
 
     public int getLastGeneralIndexPage(int generalIndexPageStart) throws IOException {
