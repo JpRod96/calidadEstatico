@@ -1,10 +1,10 @@
 package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.FormatControl.FigureNumerationFormat;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.FormatControl.Format;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.HighlightsReport.*;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.ImagesOnPdf.ImageLocations;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.ImagesOnPdf.PdfImage;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol.FigureNumerationFormat;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol.Format;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.*;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.imagesonpdf.ImageLocations;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.imagesonpdf.PdfImage;
 import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
 import com.ucbcba.joel.ucbcorreccionformato.General.ReportFormatError;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
@@ -46,7 +46,7 @@ public class FiguresFormat implements FormatRule {
         float pageWidth = pdfdocument.getPage(pageNum-1).getMediaBox().getWidth();
         float pageHeight = pdfdocument.getPage(pageNum-1).getMediaBox().getHeight();
         List<FormatErrorReport> formatErrors = new ArrayList<>();
-        final List<PdfImage> pdfImages = new ArrayList<PdfImage>();
+        final List<PdfImage> pdfImages = new ArrayList<>();
         ImageLocations imageLocations = new ImageLocations(){
             @Override
             protected void processOperator(Operator operator, List<COSBase> operands) throws IOException
@@ -76,16 +76,10 @@ public class FiguresFormat implements FormatRule {
         };
         imageLocations.processPage(page);
 
-        List<String> comments = new ArrayList<>();
+        List<String> comments;
         if (pdfImages.size()<4) {
             // Sorting
-            Collections.sort(pdfImages, new Comparator<PdfImage>() {
-                @Override
-                public int compare(PdfImage pdfImage1, PdfImage pdfImage2)
-                {
-                    return (int) (pdfImage1.getY() - pdfImage2.getY());
-                }
-            });
+            Collections.sort(pdfImages, (pdfImage1, pdfImage2) -> (int) (pdfImage1.getY() - pdfImage2.getY()));
             for (PdfImage image : pdfImages) {
                 List<String> commentsFigure = new ArrayList<>();
                 WordsProperties figureNumerationWord = seeker.findFigureNumeration(image, pageNum);
@@ -104,7 +98,7 @@ public class FiguresFormat implements FormatRule {
                     commentsFigure.add("Tenga la fuente de la figura");
                 }
 
-                if (commentsFigure.size() != 0) {
+                if (!commentsFigure.isEmpty()) {
                     StringBuilder commentStr = new StringBuilder();
                     for (int i = 0; i < commentsFigure.size(); i++) {
                         if (i != 0) {
@@ -134,7 +128,7 @@ public class FiguresFormat implements FormatRule {
     }
 
     private void reportFormatErrors(List<String> comments, WordsProperties words, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeigh, int page) {
-        if (comments.size() != 0) {
+        if (!comments.isEmpty()) {
             formatErrors.add(new ReportFormatError(counter).reportFormatError(comments, words, pageWidth, pageHeigh, page));
         }
     }

@@ -1,8 +1,8 @@
 package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
 
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.FormatControl.CoverFormat;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.HighlightsReport.FormatErrorReport;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol.CoverFormat;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.FormatErrorReport;
 import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
 import com.ucbcba.joel.ucbcorreccionformato.General.ReportFormatError;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
@@ -19,6 +19,7 @@ public class CoverPageFormat implements FormatRule {
     private PDDocument pdfdocument;
     private GeneralSeeker seeker;
     private AtomicLong counter;
+    private static final String CENTERED = "Centrado";
 
     public CoverPageFormat(PDDocument pdfdocument, AtomicLong counter){
         this.pdfdocument = pdfdocument;
@@ -41,33 +42,33 @@ public class CoverPageFormat implements FormatRule {
         pdfStripper.setSortByPosition(true);
         //Recorre la página linea por linea
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             // Condicional si encuentra una linea en blanco
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 List<WordsProperties> words = seeker.findWordsFromAPage(page, wordLine);
-                if (words.size()!=0) {
-                    List<String> comments = new ArrayList<>();
+                if (!words.isEmpty()) {
+                    List<String> comments;
                     if (cont == 1) {
-                        comments = new CoverFormat(words.get(0), 18, "Centrado", true, false, true).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 18, CENTERED, true, false, true).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
                     if (cont == 2) {
-                        comments = new CoverFormat(words.get(0), 16, "Centrado", true, false, true).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 16, CENTERED, true, false, true).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
                     if (cont == 3 || cont == 4) {
-                        comments = new CoverFormat(words.get(0), 14, "Centrado", true, false, false).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 14, CENTERED, true, false, false).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
 
                     if (cont == 5) {
-                        comments = new CoverFormat(words.get(0), 16, "Centrado", true, false, false).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 16, CENTERED, true, false, false).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
 
                     if (cont > 5 && cont <= numberOfLines - 4) {
-                        comments = new CoverFormat(words.get(0), 16, "Centrado", true, false, false).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 16, CENTERED, true, false, false).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
 
@@ -77,12 +78,12 @@ public class CoverPageFormat implements FormatRule {
                     }
 
                     if (cont == numberOfLines - 2) {
-                        comments = new CoverFormat(words.get(0), 14, "Centrado", true, false, false).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 14, CENTERED, true, false, false).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
 
                     if (cont == numberOfLines || cont == numberOfLines - 1) {
-                        comments = new CoverFormat(words.get(0), 12, "Centrado", false, false, false).getFormatErrors(pageWidth);
+                        comments = new CoverFormat(words.get(0), 12, CENTERED, false, false, false).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                     }
                 }
@@ -102,7 +103,7 @@ public class CoverPageFormat implements FormatRule {
         pdfStripper.setParagraphStart("\n");
         pdfStripper.setSortByPosition(true);
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 cont++;
             }
@@ -111,7 +112,7 @@ public class CoverPageFormat implements FormatRule {
     }
 
     private void reportFormatErrors(List<String> comments, List<WordsProperties> words, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) {
-        if (comments.size() != 0) {
+        if (!comments.isEmpty()) {
             formatErrors.add(new ReportFormatError(counter).reportFormatError(comments, words.get(0), pageWidth, pageHeight, page));
         }
     }

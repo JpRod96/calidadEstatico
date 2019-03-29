@@ -1,7 +1,7 @@
 package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.Bibliographies.PatternBibliographyReferences;
-import com.ucbcba.joel.ucbcorreccionformato.formaterrors.HighlightsReport.*;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.bibliographies.PatternBibliographyReferences;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.*;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -24,7 +24,7 @@ public class BiographyPageFormat extends  EssentialDocFormat {
         List<String> refBibliography = new ArrayList<>();
         //Recorre la página linea por linea
         for (String line : pdfStripper.getText(pdfDocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             // Condicional si encuentra una linea en blanco
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
