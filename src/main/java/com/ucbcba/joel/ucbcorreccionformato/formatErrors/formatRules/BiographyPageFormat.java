@@ -1,11 +1,9 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatRules;
+package com.ucbcba.joel.ucbcorreccionformato.formatErrors.formatRules;
 
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.Bibliographies.PatternBibliographyReferences;
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.*;
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
+import com.ucbcba.joel.ucbcorreccionformato.formatErrors.Bibliographies.PatternBibliographyReferences;
+import com.ucbcba.joel.ucbcorreccionformato.formatErrors.HighlightsReport.*;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.IOException;
 import java.text.Normalizer;
@@ -15,31 +13,18 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BiographyPageFormat implements  FormatRule {
-
-    private PDDocument pdfdocument;
-    private GeneralSeeker seeker;
-    private AtomicLong counter;
+public class BiographyPageFormat extends  EssentialDocFormat {
 
     public BiographyPageFormat(PDDocument pdfdocument, AtomicLong counter){
-        this.pdfdocument = pdfdocument;
-        this.seeker = new GeneralSeeker(pdfdocument);
-        this.counter = counter;
+        super(pdfdocument, counter);
     }
     @Override
     public List<FormatErrorReport> getFormatErrors(int page) throws IOException {
-        float pageWidth = pdfdocument.getPage(page-1).getMediaBox().getWidth();
-        float pageHeight = pdfdocument.getPage(page-1).getMediaBox().getHeight();
-        List<FormatErrorReport> formatErrors = new ArrayList<>();
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(page);
-        pdfStripper.setEndPage(page);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
-        List<String> ref_bibliografy = new ArrayList<>();
+        defaultGetFormatError(page);
+        List<String> refBibliography = new ArrayList<>();
         boolean end=false;
         //Recorre la página linea por linea
-        for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
+        for (String line : pdfStripper.getText(pdfDocument).split(pdfStripper.getParagraphStart())) {
             String arr[] = line.split(" ", 2);
             // Condicional si encuentra una linea en blanco
             if (!arr[0].equals("")) {
@@ -48,34 +33,23 @@ public class BiographyPageFormat implements  FormatRule {
                     //Condicional paara evitar el control en la paginación
                     if ((wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) || wordLine.length() > 4) {
                         if (wordLine.charAt(0) == '[') {
-                            StringBuilder bibliographic = new StringBuilder();
-                            for (String lines : ref_bibliografy) {
-                                bibliographic.append(lines).append(" ");
-                            }
-                            if(bibliographic.length()!=0){
-                                List<String> comments = new ArrayList<>();
-                                PatternBibliographyReferences pattern = getPattern(bibliographic.toString());
-                                if (pattern!=null) {
-                                    Matcher matcher = pattern.getMatcher(bibliographic.toString());
-                                    if (!matcher.find()) {
-                                        comments.add("La referencia en "+pattern.getName()+".");
-                                    }
-                                }else{
-                                    comments.add("Consultar la Guía para la presentación de trabajos académicos.");
-                                }
-                                reportFormatErrors(comments, ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
-                            }
-                            ref_bibliografy = new ArrayList<>();
-                            ref_bibliografy.add(wordLine);
+                            checkBibliographicFormat(refBibliography, formatErrors, pageWidth, pageHeight, page);
+                            refBibliography = new ArrayList<>();
+                            refBibliography.add(wordLine);
                         } else {
-                            ref_bibliografy.add(wordLine);
+                            refBibliography.add(wordLine);
                         }
                     }
                 }
             }
         }
+        checkBibliographicFormat(refBibliography, formatErrors, pageWidth, pageHeight, page);
+        return formatErrors;
+    }
+
+    private void checkBibliographicFormat(List<String> refBibliography, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException{
         StringBuilder bibliographic = new StringBuilder();
-        for (String lines : ref_bibliografy) {
+        for (String lines : refBibliography) {
             bibliographic.append(lines).append(" ");
         }
         if(bibliographic.length()!=0){
@@ -89,9 +63,8 @@ public class BiographyPageFormat implements  FormatRule {
             }else{
                 comments.add("Consultar la Guía para la presentación de trabajos académicos.");
             }
-            reportFormatErrors(comments, ref_bibliografy, formatErrors, pageWidth, pageHeight, page);
+            reportFormatErrors(comments, refBibliography, formatErrors, pageWidth, pageHeight, page);
         }
-        return formatErrors;
     }
 
     private void reportFormatErrors(List<String> comments, List<String> ref_bibliografy, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException {
