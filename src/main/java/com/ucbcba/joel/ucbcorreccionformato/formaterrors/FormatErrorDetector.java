@@ -1,7 +1,7 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors;
+package com.ucbcba.joel.ucbcorreccionformato.formaterrors;
 
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatRules.*;
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.FormatErrorReport;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules.*;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.FormatErrorReport;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 
@@ -18,8 +18,8 @@ public class FormatErrorDetector {
     private final AtomicLong figureNumeration = new AtomicLong();
 
 
-    public FormatErrorDetector(PDDocument pdfdocument) throws IOException {
-        this.pdfdocument = pdfdocument;
+    public FormatErrorDetector(PDDocument pdfDocument) {
+        this.pdfdocument = pdfDocument;
         figureNumeration.incrementAndGet();
     }
 

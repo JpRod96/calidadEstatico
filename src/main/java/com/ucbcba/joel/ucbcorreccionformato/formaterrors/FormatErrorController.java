@@ -1,6 +1,6 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors;
+package com.ucbcba.joel.ucbcorreccionformato.formaterrors;
 
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.FormatErrorReport;
+import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.FormatErrorReport;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,10 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class FormatErrorController {
-
+    private static final Logger LOGGER = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatErrorController");
     @PostMapping("/api/formatErrors/{fileName:.+}")
     public List<FormatErrorReport> greeting(@PathVariable String fileName, @RequestParam(value="coverPage") String coverPage
             , @RequestParam(value="generalIndexPageStart") String generalIndexPageStart, @RequestParam(value="generalIndexPageEnd") String generalIndexPageEnd
@@ -26,7 +28,7 @@ public class FormatErrorController {
             formatErrorDetector.analyzeFormatPdf(coverPage,generalIndexPageStart,generalIndexPageEnd,figureTableIndexPageEnd,biographyPage,annexedPage);
             formatErrors = formatErrorDetector.getFormatErrorReports();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         return formatErrors;
     }

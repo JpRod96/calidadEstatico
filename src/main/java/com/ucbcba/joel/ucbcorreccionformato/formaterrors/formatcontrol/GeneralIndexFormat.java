@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatControl;
+package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol;
 
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 
@@ -36,30 +36,26 @@ public class GeneralIndexFormat extends Format {
         }
 
         if (alignment.equals("Izquierdo")) {
-            if (nroBleeding == 0) {
-                if (word.getX() < 95 || word.getX() > 105) {
-                    comments.add("Alineado al margen izquierdo");
-                }
+            if (nroBleeding == 0 && wordInRange(95,105)) {
+                comments.add("Alineado al margen izquierdo");
             }
 
-            if (nroBleeding == 1) {
-                if (word.getX() < 106 || word.getX() > 116) {
-                    comments.add("Tenga una sangría pequeña");
-                }
+            if (nroBleeding == 1 && wordInRange(106,116)) {
+                comments.add("Tenga una sangría pequeña");
             }
 
-            if (nroBleeding == 2) {
-                if (word.getX() < 117 || word.getX() > 127) {
-                    comments.add("Tenga dos sangrías pequeñas");
-                }
+            if (nroBleeding == 2 && wordInRange(117,127)) {
+                comments.add("Tenga dos sangrías pequeñas");
             }
 
-            if (nroBleeding == 3) {
-                if (word.getX() < 129 || word.getX() > 139) {
-                    comments.add("Tenga tres sangrías pequeñas");
-                }
+            if (nroBleeding == 3 && wordInRange(129,139)) {
+                comments.add("Tenga tres sangrías pequeñas");
             }
         }
         return comments;
+    }
+
+    private boolean wordInRange(int lowerX, int upperX){
+        return word.getX() < lowerX || word.getX() > upperX;
     }
 }

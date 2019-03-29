@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatControl;
+package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol;
 
 
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
@@ -55,16 +55,12 @@ public class Format {
             }
         }
 
-        if(alignment.equals("Centrado")){
-            if (Math.abs((pageWidth - word.getXPlusWidth()) - word.getX()) >= 100){
-                comments.add("Alineado centrado");
-            }
+        if(alignment.equals("Centrado") && Math.abs((pageWidth - word.getXPlusWidth()) - word.getX()) >= 100){
+            comments.add("Alineado centrado");
         }
 
-        if(alignment.equals("Derecho")){
-            if (Math.abs((pageWidth - word.getXPlusWidth()) - word.getX()) <= 20 || word.getXPlusWidth() < 500){
-                comments.add("Alineado al margen derecho");
-            }
+        if(alignment.equals("Derecho") && Math.abs((pageWidth - word.getXPlusWidth()) - word.getX()) <= 20 || word.getXPlusWidth() < 500){
+            comments.add("Alineado al margen derecho");
         }
 
         return comments;
