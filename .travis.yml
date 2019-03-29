@@ -1,4 +1,9 @@
 language: java
+cache:
+  npm: true
+  directories:
+    - .autoconf
+    - $HOME/.m2
 sudo: true
 dist: trusty
 addons:
