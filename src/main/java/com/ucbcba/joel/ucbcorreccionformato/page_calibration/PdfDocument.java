@@ -1,11 +1,11 @@
-package com.ucbcba.joel.ucbcorreccionformato.PageCalibration;
+package com.ucbcba.joel.ucbcorreccionformato.page_calibration;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.IOException;
 
 public class PdfDocument {
-    private PDDocument pdfdocument;
+    private PDDocument document;
     private int coverPage;
     private int generalIndexPageStart;
     private int generalIndexPageEnd;
@@ -13,9 +13,9 @@ public class PdfDocument {
     private int biographyPageStart;
     private int annexedPageStart;
 
-    public PdfDocument(PDDocument pdfdocument) throws IOException {
-        this.pdfdocument = pdfdocument;
-        PagesSeeker seeker = new PagesSeeker(pdfdocument);
+    public PdfDocument(PDDocument document) throws IOException {
+        this.document = document;
+        PagesSeeker seeker = new PagesSeeker(document);
         this.coverPage = seeker.getCoverPage();
         this.generalIndexPageStart = seeker.getFirstGeneralIndexPage();
         this.generalIndexPageEnd = seeker.getLastGeneralIndexPage(generalIndexPageStart);
@@ -56,8 +56,8 @@ public class PdfDocument {
         this.annexedPageStart = annexedPageStart;
     }
 
-    public PDDocument getPdfdocument() {
-        return pdfdocument;
+    public PDDocument getDocument() {
+        return document;
     }
 
     public int getBiographyPageStart() {
