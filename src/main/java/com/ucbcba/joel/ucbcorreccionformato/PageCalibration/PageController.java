@@ -19,10 +19,10 @@ public class PageController {
     public List<String> getPages(@PathVariable String fileName)  {
         List<String> pages = new ArrayList<>();
         String dirPdfFile = "uploads/" + fileName;
-        PDDocument pdfdocument = null;
+        PDDocument pdfDocument;
         try {
-            pdfdocument = PDDocument.load(new File(dirPdfFile));
-            PdfDocument document = new PdfDocument(pdfdocument);
+            pdfDocument = PDDocument.load(new File(dirPdfFile));
+            PdfDocument document = new PdfDocument(pdfDocument);
             pages.add(Integer.toString(document.getCoverPage()));
             pages.add(Integer.toString(document.getGeneralIndexPageStart()));
             pages.add(Integer.toString(document.getGeneralIndexPageEnd()));
