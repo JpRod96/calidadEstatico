@@ -17,23 +17,27 @@ public class PagesSeeker {
     }
 
     public boolean isTheCoverInThisPage(int page) throws IOException {
-        boolean bool1 = generalSeeker.isTheWordInThePage(page,"Boliviana");
-        boolean bool2 = generalSeeker.isTheWordInThePage(page,"boliviana");
-        boolean bool3 = generalSeeker.isTheWordInThePage(page,"BOLIVIANA");
-        boolean bool4 = generalSeeker.isTheWordInThePage(page,"Regional");
-        boolean bool5 = generalSeeker.isTheWordInThePage(page,"regional");
-        boolean bool6 = generalSeeker.isTheWordInThePage(page,"REGIONAL");
-        boolean bool7 = generalSeeker.isTheWordInThePage(page,"Departamento");
-        boolean bool8 = generalSeeker.isTheWordInThePage(page,"departamento");
-        boolean bool9 = generalSeeker.isTheWordInThePage(page,"DEPARTAMENTO");
-        boolean bool10 = generalSeeker.isTheWordInThePage(page,"Carrera");
-        boolean bool11 = generalSeeker.isTheWordInThePage(page,"carrera");
-        boolean bool12 = generalSeeker.isTheWordInThePage(page,"CARRERA");
-        boolean bool13 = generalSeeker.isTheWordInThePage(page,"– Bolivia");
-        boolean bool14 = generalSeeker.isTheWordInThePage(page,"– bolivia");
-        boolean bool15 = generalSeeker.isTheWordInThePage(page,"– BOLIVIA");
-        return getNumberOfTrues(bool1,bool2, bool3, bool4, bool5, bool6,bool7, bool8, bool9, bool10,bool11,bool12, bool13, bool14, bool15) >= 3;
+        boolean[] isTheWordInTheTitle = {
+                generalSeeker.isTheWordInThePage(page,"Boliviana"),
+                generalSeeker.isTheWordInThePage(page,"Boliviana"),
+                generalSeeker.isTheWordInThePage(page,"boliviana"),
+                generalSeeker.isTheWordInThePage(page,"BOLIVIANA"),
+                generalSeeker.isTheWordInThePage(page,"Regional"),
+                generalSeeker.isTheWordInThePage(page,"regional"),
+                generalSeeker.isTheWordInThePage(page,"REGIONAL"),
+                generalSeeker.isTheWordInThePage(page,"Departamento"),
+                generalSeeker.isTheWordInThePage(page,"departamento"),
+                generalSeeker.isTheWordInThePage(page,"DEPARTAMENTO"),
+                generalSeeker.isTheWordInThePage(page,"Carrera"),
+                generalSeeker.isTheWordInThePage(page,"carrera"),
+                generalSeeker.isTheWordInThePage(page,"CARRERA"),
+                generalSeeker.isTheWordInThePage(page,"– Bolivia"),
+                generalSeeker.isTheWordInThePage(page,"– bolivia"),
+                generalSeeker.isTheWordInThePage(page,"– BOLIVIA")};
+
+        return getNumberOfTrues(isTheWordInTheTitle) >= 3;
     }
+
 
     public int getCoverPage() throws IOException {
         int resp = 0;
@@ -101,15 +105,14 @@ public class PagesSeeker {
     }
 
     public boolean isTheFirsBiographyInThisPage(int page) throws IOException {
-        boolean bool1,bool2,bool3,bool4;
-        bool1 = generalSeeker.isTheWordInThePage(page,"BIBLIOGRAFÍA");
-        bool2 = generalSeeker.isTheWordInThePage(page,"Bibliografía");
+        boolean bool1 = generalSeeker.isTheWordInThePage(page,"BIBLIOGRAFÍA");
+        boolean bool2 = generalSeeker.isTheWordInThePage(page,"Bibliografía");
         String word = Normalizer.normalize("BIBLIOGRAFÍA", Normalizer.Form.NFD);
         word = word.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        bool3 = generalSeeker.isTheWordInThePage(page,word);
+        boolean bool3 = generalSeeker.isTheWordInThePage(page,word);
         word = Normalizer.normalize("Bibliografía", Normalizer.Form.NFD);
         word = word.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        bool4 = generalSeeker.isTheWordInThePage(page,word);
+        boolean bool4 = generalSeeker.isTheWordInThePage(page,word);
         return getNumberOfTrues(bool1,bool2,bool3,bool4) >= 1;
     }
 
