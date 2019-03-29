@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 @RestController
 public class BasicFormatController {
+    private static final Logger LOGGER = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.FormalAspects.BasicFormatController");
     @PostMapping(value = "/api/basicFormat/{fileName:.+}")
     public List<BasicFormatReport> getBasicMisstakes(@PathVariable String fileName, @RequestParam(value="figureTableIndexPageEnd") String figureTableIndexPageEnd
             , @RequestParam(value="annexedPage") String annexedPage) {
