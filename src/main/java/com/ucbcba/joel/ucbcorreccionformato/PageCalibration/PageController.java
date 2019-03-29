@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 public class PageController {
+    private static final Logger LOGGER = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.PageCalibration.PageCalibrationController");
     @PostMapping("/api/getPages/{fileName:.+}")
     public List<String> getPages(@PathVariable String fileName)  {
         List<String> pages = new ArrayList<>();
@@ -27,7 +28,7 @@ public class PageController {
             pages.add(Integer.toString(document.getBiographyPageStart()));
             pages.add(Integer.toString(document.getAnnexedPageStart()));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         return pages;
     }

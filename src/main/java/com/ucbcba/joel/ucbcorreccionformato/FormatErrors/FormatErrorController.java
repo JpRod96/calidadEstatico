@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 public class FormatErrorController {
-
+    private static final Logger LOGGER = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatErrorController");
     @PostMapping("/api/formatErrors/{fileName:.+}")
     public List<FormatErrorReport> greeting(@PathVariable String fileName, @RequestParam(value="coverPage") String coverPage
             , @RequestParam(value="generalIndexPageStart") String generalIndexPageStart, @RequestParam(value="generalIndexPageEnd") String generalIndexPageEnd
@@ -26,7 +26,7 @@ public class FormatErrorController {
             formatErrorDetector.analyzeFormatPdf(coverPage,generalIndexPageStart,generalIndexPageEnd,figureTableIndexPageEnd,biographyPage,annexedPage);
             formatErrors = formatErrorDetector.getFormatErrorReports();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         return formatErrors;
     }

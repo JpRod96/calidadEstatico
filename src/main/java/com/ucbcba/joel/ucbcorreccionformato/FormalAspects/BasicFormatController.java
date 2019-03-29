@@ -7,9 +7,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 public class BasicFormatController {
+    private static final Logger LOGGER = Logger.getLogger("com.ucbcba.joel.ucbcorreccionformato.FormalAspects.BasicFormatController");
     @PostMapping(value = "/api/basicFormat/{fileName:.+}")
     public List<BasicFormatReport> getBasicMisstakes(@PathVariable String fileName, @RequestParam(value="figureTableIndexPageEnd") String figureTableIndexPageEnd
             , @RequestParam(value="annexedPage") String annexedPage) {
@@ -22,7 +25,7 @@ public class BasicFormatController {
             formatErrorDetector.analyzeBasicFormat(figureTableIndexPageEnd,annexedPage);
             basicFormatReports = formatErrorDetector.getBasicFormatReports();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }
         return basicFormatReports;
     }
