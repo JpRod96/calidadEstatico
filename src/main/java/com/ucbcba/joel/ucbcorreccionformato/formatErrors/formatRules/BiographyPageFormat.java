@@ -1,10 +1,9 @@
-package com.ucbcba.joel.ucbcorreccionformato.FormatErrors.FormatRules;
+package com.ucbcba.joel.ucbcorreccionformato.formatErrors.formatRules;
 
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.Bibliographies.PatternBibliographyReferences;
-import com.ucbcba.joel.ucbcorreccionformato.FormatErrors.HighlightsReport.*;
+import com.ucbcba.joel.ucbcorreccionformato.formatErrors.Bibliographies.PatternBibliographyReferences;
+import com.ucbcba.joel.ucbcorreccionformato.formatErrors.HighlightsReport.*;
 import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.IOException;
 import java.text.Normalizer;
