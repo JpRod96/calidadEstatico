@@ -46,6 +46,17 @@ public class BiographyPageFormat extends  EssentialDocFormat {
         return formatErrors;
     }
 
+    private void avoidPageControl(String wordLine, List<String> refBibliography, int page)throws IOException{
+        if ((wordLine.length() - wordLine.replaceAll(" ", "").length() >= 1) || wordLine.length() > 4) {
+            if (wordLine.charAt(0) == '[') {
+                checkBibliographicFormat(refBibliography, formatErrors, pageWidth, pageHeight, page);
+                refBibliography = new ArrayList<>();
+                refBibliography.add(wordLine);
+            } else {
+                refBibliography.add(wordLine);
+            }
+        }
+    }
     private void checkBibliographicFormat(List<String> refBibliography, List<FormatErrorReport> formatErrors, float pageWidth, float pageHeight, int page) throws IOException{
         StringBuilder bibliographic = new StringBuilder();
         for (String lines : refBibliography) {
