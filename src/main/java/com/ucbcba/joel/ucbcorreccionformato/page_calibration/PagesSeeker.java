@@ -107,16 +107,20 @@ public class PagesSeeker {
     }
 
     public boolean isTheFirsBiographyInThisPage(int page) throws IOException {
-        boolean bool1 = generalSeeker.isTheWordInThePage(page,"BIBLIOGRAFÍA");
-        boolean bool2 = generalSeeker.isTheWordInThePage(page,"Bibliografía");
-        String word = Normalizer.normalize("BIBLIOGRAFÍA", Normalizer.Form.NFD);
-        word = word.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        boolean bool3 = generalSeeker.isTheWordInThePage(page,word);
-        word = Normalizer.normalize("Bibliografía", Normalizer.Form.NFD);
-        word = word.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-        boolean bool4 = generalSeeker.isTheWordInThePage(page,word);
-        return getNumberOfTrues(bool1,bool2,bool3,bool4) >= 1;
+        boolean[] isTheWordInThePage = {
+                generalSeeker.isTheWordInThePage(page,"BIBLIOGRAFÍA"),
+                generalSeeker.isTheWordInThePage(page,"Bibliografía"),
+                generalSeeker.isTheWordInThePage(page,getWord("BIBLIOGRAFÍA")),
+                generalSeeker.isTheWordInThePage(page,getWord("Bibliografía"))};
+        return getNumberOfTrues(isTheWordInThePage) >= 1;
     }
+
+    private String getWord(String wordFormat) {
+        String word = Normalizer.normalize(wordFormat, Normalizer.Form.NFD);
+        word = word.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return word;
+    }
+
 
     public int getFirstBiographyPage() throws IOException {
         int resp = pdfdocument.getNumberOfPages()+1;
