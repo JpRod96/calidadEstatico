@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Service;
+package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.service;
 
 import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.exception.FileStorageException;
 import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.exception.MyFileNotFoundException;

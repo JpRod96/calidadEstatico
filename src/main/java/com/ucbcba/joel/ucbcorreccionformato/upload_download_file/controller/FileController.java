@@ -1,7 +1,7 @@
 package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.controller;
 
 import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Payload.UploadFileResponse;
-import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Service.FileStorageService;
+import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.service.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
