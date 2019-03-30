@@ -41,7 +41,7 @@ public class GeneralIndexPageFormat extends EssentialDocFormat{
                         }
                     }
 
-                    if (wordLine.contains("ÍNDICE GENERAL") || wordLine.contains("Índice General") || wordLine.contains("Índice general")) {
+                    if (wordLine.contains("ÍNDICE GENERAL") || wordLine.contains("Índice General")) {
                         comments = new GeneralIndexFormat(words.get(0),12,"Centrado",true,false,true,0).getFormatErrors(pageWidth);
                         reportFormatErrors(comments, words, formatErrors, pageWidth, pageHeight, page);
                         continue;
