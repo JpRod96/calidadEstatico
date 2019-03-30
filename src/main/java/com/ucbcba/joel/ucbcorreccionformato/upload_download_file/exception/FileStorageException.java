@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Exception;
+package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.exception;
 
 public class FileStorageException extends RuntimeException {
     public FileStorageException(String message) {
