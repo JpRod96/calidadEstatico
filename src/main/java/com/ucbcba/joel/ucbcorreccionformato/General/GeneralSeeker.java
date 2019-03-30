@@ -92,13 +92,18 @@ public class GeneralSeeker {
             String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
-                if (arr[0].contains("Figura")) {
-                    List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
-                    for (WordsProperties word : words) {
-                        if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
-                            resp = word;
-                        }
-                    }
+                List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
+                resp = getFigureNumeration(image, resp, arr[0], words);
+            }
+        }
+        return resp;
+    }
+
+    private WordsProperties getFigureNumeration(PdfImage image, WordsProperties resp, String s, List<WordsProperties> words) {
+        if (s.contains("Figura")) {
+            for (WordsProperties word : words) {
+                if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
+                    resp = word;
                 }
             }
         }
