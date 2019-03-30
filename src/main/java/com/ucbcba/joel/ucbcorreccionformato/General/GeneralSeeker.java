@@ -71,7 +71,7 @@ public class GeneralSeeker {
         pdfStripper.setSortByPosition(true);
         for (String line: pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart()))
         {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 resp = line.trim();
             }
@@ -89,7 +89,7 @@ public class GeneralSeeker {
         pdfStripper.setSortByPosition(true);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 if (arr[0].contains("Figura")) {
@@ -114,7 +114,7 @@ public class GeneralSeeker {
         pdfStripper.setSortByPosition(true);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
                 if (arr[0].contains("Fuente")) {
