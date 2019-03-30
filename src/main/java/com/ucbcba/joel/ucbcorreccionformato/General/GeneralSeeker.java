@@ -40,7 +40,7 @@ public class GeneralSeeker {
     }
 
     public List<WordsProperties> findWordsFromAPage(int page, String searchWord) throws IOException {
-        final List<WordsProperties> listWordPositionSequences = new ArrayList<WordsProperties>();
+        final List<WordsProperties> listWordPositionSequences = new ArrayList<>();
         PDFTextStripper stripper = new PDFTextStripper() {
             @Override
             protected void writeString(String text, List<TextPosition> textPositions) throws IOException {
