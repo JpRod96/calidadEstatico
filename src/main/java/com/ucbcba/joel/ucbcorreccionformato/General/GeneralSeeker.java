@@ -64,11 +64,7 @@ public class GeneralSeeker {
 
     public String getLastWordsLine(int page) throws IOException {
         String resp = "";
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(page);
-        pdfStripper.setEndPage(page);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(page);
         for (String line: pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart()))
         {
             String[] arr = line.split(" ", 2);
@@ -82,11 +78,7 @@ public class GeneralSeeker {
 
     public WordsProperties findFigureNumeration(PdfImage image, int pageNum) throws IOException {
         WordsProperties resp = null;
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(pageNum);
-        pdfStripper.setEndPage(pageNum);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
             String[] arr = line.split(" ", 2);
@@ -97,6 +89,15 @@ public class GeneralSeeker {
             }
         }
         return resp;
+    }
+
+    private PDFTextStripper getPdfTextStripper(int pageNum) throws IOException {
+        PDFTextStripper pdfStripper = new PDFTextStripper();
+        pdfStripper.setStartPage(pageNum);
+        pdfStripper.setEndPage(pageNum);
+        pdfStripper.setParagraphStart("\n");
+        pdfStripper.setSortByPosition(true);
+        return pdfStripper;
     }
 
     private WordsProperties getFigureNumeration(PdfImage image, WordsProperties resp, String s, List<WordsProperties> words) {
@@ -112,11 +113,7 @@ public class GeneralSeeker {
 
 
     public WordsProperties findFigureSource(PdfImage image, int pageNum) throws IOException {
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(pageNum);
-        pdfStripper.setEndPage(pageNum);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
             String[] arr = line.split(" ", 2);
