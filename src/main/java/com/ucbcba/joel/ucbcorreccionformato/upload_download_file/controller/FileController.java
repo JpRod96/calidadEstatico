@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Controller;
+package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.controller;
 
 import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Payload.UploadFileResponse;
 import com.ucbcba.joel.ucbcorreccionformato.upload_download_file.Service.FileStorageService;
