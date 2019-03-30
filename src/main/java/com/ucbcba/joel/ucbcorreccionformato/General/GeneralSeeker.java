@@ -117,13 +117,18 @@ public class GeneralSeeker {
             String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
-                if (arr[0].contains("Fuente")) {
-                    List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
-                    for (WordsProperties word : words) {
-                        if ((image.getEndY() < word.getY()) && (image.getEndY() + 100 > word.getY())) {
-                            return word;
-                        }
-                    }
+                List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
+                return getFigureSource(image, arr[0], words);
+            }
+        }
+        return null;
+    }
+
+    private WordsProperties getFigureSource(PdfImage image, String s, List<WordsProperties> words) {
+        if (s.contains("Fuente")) {
+            for (WordsProperties word : words) {
+                if ((image.getEndY() < word.getY()) && (image.getEndY() + 100 > word.getY())) {
+                    return word;
                 }
             }
         }
