@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.UploadDownloadFile.Exception;
+package com.ucbcba.joel.ucbcorreccionformato.upload_download_file.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
