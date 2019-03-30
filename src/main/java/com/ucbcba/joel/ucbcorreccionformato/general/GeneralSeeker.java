@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.General;
+package com.ucbcba.joel.ucbcorreccionformato.general;
 
 import com.ucbcba.joel.ucbcorreccionformato.formaterrors.imagesonpdf.PdfImage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -40,7 +40,7 @@ public class GeneralSeeker {
     }
 
     public List<WordsProperties> findWordsFromAPage(int page, String searchWord) throws IOException {
-        final List<WordsProperties> listWordPositionSequences = new ArrayList<WordsProperties>();
+        final List<WordsProperties> listWordPositionSequences = new ArrayList<>();
         PDFTextStripper stripper = new PDFTextStripper() {
             @Override
             protected void writeString(String text, List<TextPosition> textPositions) throws IOException {
@@ -64,14 +64,10 @@ public class GeneralSeeker {
 
     public String getLastWordsLine(int page) throws IOException {
         String resp = "";
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(page);
-        pdfStripper.setEndPage(page);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(page);
         for (String line: pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart()))
         {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 resp = line.trim();
             }
@@ -82,23 +78,33 @@ public class GeneralSeeker {
 
     public WordsProperties findFigureNumeration(PdfImage image, int pageNum) throws IOException {
         WordsProperties resp = null;
+        PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
+
+        for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
+            String[] arr = line.split(" ", 2);
+            if (!arr[0].equals("")) {
+                String wordLine = line.trim();
+                List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
+                resp = getFigureNumeration(image, resp, arr[0], words);
+            }
+        }
+        return resp;
+    }
+
+    private PDFTextStripper getPdfTextStripper(int pageNum) throws IOException {
         PDFTextStripper pdfStripper = new PDFTextStripper();
         pdfStripper.setStartPage(pageNum);
         pdfStripper.setEndPage(pageNum);
         pdfStripper.setParagraphStart("\n");
         pdfStripper.setSortByPosition(true);
+        return pdfStripper;
+    }
 
-        for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
-            if (!arr[0].equals("")) {
-                String wordLine = line.trim();
-                if (arr[0].contains("Figura")) {
-                    List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
-                    for (WordsProperties word : words) {
-                        if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
-                            resp = word;
-                        }
-                    }
+    private WordsProperties getFigureNumeration(PdfImage image, WordsProperties resp, String s, List<WordsProperties> words) {
+        if (s.contains("Figura")) {
+            for (WordsProperties word : words) {
+                if ((image.getY() > word.getY()) && (image.getY() - 150 < word.getY())) {
+                    resp = word;
                 }
             }
         }
@@ -107,23 +113,24 @@ public class GeneralSeeker {
 
 
     public WordsProperties findFigureSource(PdfImage image, int pageNum) throws IOException {
-        PDFTextStripper pdfStripper = new PDFTextStripper();
-        pdfStripper.setStartPage(pageNum);
-        pdfStripper.setEndPage(pageNum);
-        pdfStripper.setParagraphStart("\n");
-        pdfStripper.setSortByPosition(true);
+        PDFTextStripper pdfStripper = getPdfTextStripper(pageNum);
 
         for (String line : pdfStripper.getText(pdfdocument).split(pdfStripper.getParagraphStart())) {
-            String arr[] = line.split(" ", 2);
+            String[] arr = line.split(" ", 2);
             if (!arr[0].equals("")) {
                 String wordLine = line.trim();
-                if (arr[0].contains("Fuente")) {
-                    List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
-                    for (WordsProperties word : words) {
-                        if ((image.getEndY() < word.getY()) && (image.getEndY() + 100 > word.getY())) {
-                            return word;
-                        }
-                    }
+                List<WordsProperties> words = findWordsFromAPage(pageNum, wordLine);
+                return getFigureSource(image, arr[0], words);
+            }
+        }
+        return null;
+    }
+
+    private WordsProperties getFigureSource(PdfImage image, String s, List<WordsProperties> words) {
+        if (s.contains("Fuente")) {
+            for (WordsProperties word : words) {
+                if ((image.getEndY() < word.getY()) && (image.getEndY() + 100 > word.getY())) {
+                    return word;
                 }
             }
         }

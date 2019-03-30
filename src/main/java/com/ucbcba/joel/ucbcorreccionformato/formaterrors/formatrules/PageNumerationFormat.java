@@ -2,9 +2,9 @@ package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
 import com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol.PageFormat;
 import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.FormatErrorReport;
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
-import com.ucbcba.joel.ucbcorreccionformato.General.ReportFormatError;
-import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
+import com.ucbcba.joel.ucbcorreccionformato.general.GeneralSeeker;
+import com.ucbcba.joel.ucbcorreccionformato.general.ReportFormatError;
+import com.ucbcba.joel.ucbcorreccionformato.general.WordsProperties;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.IOException;

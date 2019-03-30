@@ -1,4 +1,4 @@
-package com.ucbcba.joel.ucbcorreccionformato.General;
+package com.ucbcba.joel.ucbcorreccionformato.general;
 
 import org.apache.pdfbox.text.TextPosition;
 
@@ -7,8 +7,8 @@ import java.util.List;
 public class WordsProperties implements CharSequence{
 
     private List<TextPosition> textPositions;
-    private int start, end;
-
+    private int start;
+    private int end;
     public WordsProperties(List<TextPosition> textPositions) {
         this.textPositions = textPositions;
         this.start = 0;

@@ -1,6 +1,6 @@
 package com.ucbcba.joel.ucbcorreccionformato.page_calibration;
 
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
+import com.ucbcba.joel.ucbcorreccionformato.general.GeneralSeeker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
 import java.io.IOException;

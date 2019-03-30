@@ -1,6 +1,6 @@
 package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatcontrol;
 
-import com.ucbcba.joel.ucbcorreccionformato.General.WordsProperties;
+import com.ucbcba.joel.ucbcorreccionformato.general.WordsProperties;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.ucbcba.joel.ucbcorreccionformato.formaterrors.formatrules;
 
 import com.ucbcba.joel.ucbcorreccionformato.formaterrors.highlightsreport.FormatErrorReport;
-import com.ucbcba.joel.ucbcorreccionformato.General.GeneralSeeker;
+import com.ucbcba.joel.ucbcorreccionformato.general.GeneralSeeker;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
